@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fuel Delivery Requests</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .card {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center text-primary">🚛 Fuel Delivery Requests</h1>
+    <div id="loading" class="text-center mb-4">Loading customer requests...</div>
+    <div id="requestList" class="row"></div>
+  </div>
+
+  <script>
+    const list = document.getElementById('requestList');
+    const loading = document.getElementById('loading');
+
+    fetch('/api/requests')
+      .then(res => res.json())
+      .then(data => {
+        loading.style.display = 'none';
+        if (data.length === 0) {
+          list.innerHTML = '<p class="text-center text-muted">No customer requests yet.</p>';
+        } else {
+          data.forEach(req => {
+            const item = document.createElement('div');
+            item.className = 'col-md-6 col-lg-4';
+            item.innerHTML = `
+              <div class="card shadow">
+                <div class="card-body">
+                  <h5 class="card-title">${req.city}, ${req.state}</h5>
+                  <p class="card-text">
+                    <strong>Address:</strong> ${req.address}<br>
+                    <strong>Zip:</strong> ${req.zip}<br>
+                    <strong>Phone:</strong> ${req.phone}
+                  </p>
+                </div>
+              </div>
+            `;
+            list.appendChild(item);
+          });
+        }
+      })
+      .catch(err => {
+        loading.innerHTML = '<p class="text-danger">Error loading customer requests.</p>';
+        console.error("Fetch error:", err);
+      });
+  </script>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

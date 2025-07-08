@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Request Submitted</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .checkmark {
+      font-size: 80px;
+      color: #28a745;
+    }
+    .message-box {
+      background-color: #fff;
+      padding: 3rem;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    .uid-box {
+      font-size: 1.2rem;
+      background-color: #e9ecef;
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 20px auto;
+      width: fit-content;
+      color: #212529;
+    }
+  </style>
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100">
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center message-box">
+        <div class="checkmark">✔️</div>
+        <h1 class="text-success">Request Submitted Successfully</h1>
+        <p class="lead mb-3">Our delivery agent will reach you shortly with the fuel.</p>
+
+        <!-- Tracking ID display -->
+        <div id="uidBox" class="uid-box d-none">
+          <strong>Your Tracking ID:</strong> <span id="trackingId"></span>
+        </div>
+
+        <!-- Track Button -->
+        <a id="trackBtn" href="#" class="btn btn-primary btn-lg mt-3">🚗 Track My Delivery</a>
+
+        <a href="/" class="btn btn-warning btn-lg mt-2">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Get UID from URL
+    const params = new URLSearchParams(window.location.search);
+    const uid = params.get('uid');
+
+    if (uid) {
+      document.getElementById('trackBtn').href = `/track.html?uid=${uid}`;
+      document.getElementById('trackingId').textContent = uid;
+      document.getElementById('uidBox').classList.remove('d-none');
+    } else {
+      document.getElementById('trackBtn').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
