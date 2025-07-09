@@ -34,6 +34,18 @@
       font-weight: bold;
       margin-top: 1rem;
     }
+    form input:focus, form textarea:focus {
+      border-color: #0d6efd !important;
+      box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+      transition: 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #084298;
+    }
+    footer a:hover {
+      color: #ffc107;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -41,7 +53,9 @@
   <header class="header">
     <h1 class="text-dark">Fuel Indicator</h1>
   </header>
-    <div class="container mb-4">
+
+  <!-- Tracking Form -->
+  <div class="container mb-4">
     <div class="row justify-content-center">
       <div class="col-md-6 text-center">
         <form onsubmit="event.preventDefault(); trackNow();">
@@ -51,83 +65,53 @@
       </div>
     </div>
   </div>
-  <div class="container mb-5 p-4 bg-white rounded shadow-lg" style="max-width: 600px; margin-top: 2rem;">
-  <h2 class="mb-4 text-center text-warning fw-bold">🛢️ Fuel Delivery Request</h2>
-  <form method="POST" action="/submit">
-    <div class="mb-3">
-      <label for="name" class="form-label fw-semibold">👤 Full Name</label>
-      <input type="text" name="name" id="name" class="form-control form-control-lg" placeholder="John Doe" required>
-    </div>
 
-    <div class="mb-3">
-      <label for="address" class="form-label fw-semibold">📍 Address</label>
-      <input type="text" name="address" id="address" class="form-control form-control-lg" placeholder="123, Main Street" required>
-    </div>
-
-    <div class="row g-3 mb-3">
-      <div class="col-sm-6">
-        <label for="city" class="form-label fw-semibold">🏙️ City</label>
-        <input type="text" name="city" id="city" class="form-control form-control-lg" placeholder="Chennai" required>
-      </div>
-      <div class="col-sm-4">
-        <label for="state" class="form-label fw-semibold">🌐 State</label>
-        <input type="text" name="state" id="state" class="form-control form-control-lg" placeholder="Tamil Nadu" required>
-      </div>
-      <div class="col-sm-2">
-        <label for="zip" class="form-label fw-semibold">📮 Zip</label>
-        <input type="text" name="zip" id="zip" class="form-control form-control-lg" placeholder="600001" required>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label for="phone" class="form-label fw-semibold">📞 Mobile Number</label>
-      <input type="tel" name="phone" id="phone" class="form-control form-control-lg" placeholder="9876543210" required pattern="[0-9]{10}">
-    </div>
-
-    <div class="d-grid mt-4">
-      <button type="submit" class="btn btn-warning btn-lg shadow-sm">
-        🚀 Place Order Now
-      </button>
-    </div>
-  </form>
-</div>
-
-<!-- 
-  <div class="container mb-5">
-    <h2 class="mb-4">Enter Delivery Details</h2>
-    <form class="form-section" method="POST" action="/submit">
+  <!-- Stylish Fuel Delivery Request Form -->
+  <div class="container mb-5 p-4 bg-light rounded-4 shadow" style="max-width: 650px;">
+    <h2 class="mb-4 text-center text-primary fw-bold">⛽ Place Fuel Delivery Request</h2>
+    <form method="POST" action="/submit" class="needs-validation" novalidate>
       <div class="mb-3">
-        <label for="name" class="form-label">Customer Name</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Full Name" required>
+        <label for="name" class="form-label">👤 Full Name</label>
+        <input type="text" name="name" id="name" class="form-control form-control-lg border-primary" placeholder="e.g. John Doe" required>
       </div>
+
       <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" name="address" id="address" class="form-control" placeholder="Address" required>
+        <label for="address" class="form-label">📍 Address</label>
+        <textarea name="address" id="address" class="form-control form-control-lg border-primary" 
+                  placeholder="Flat No, Street, Area" rows="1" required style="resize: none;"></textarea>
       </div>
+
       <div class="row g-3 mb-3">
-        <div class="col-sm-6">
-          <label for="city" class="form-label">City</label>
-          <input type="text" name="city" id="city" class="form-control" placeholder="City" required>
+        <div class="col-md-6">
+          <label for="city" class="form-label">🏙️ City</label>
+          <input type="text" name="city" id="city" class="form-control form-control-lg border-primary" placeholder="Chennai" required>
         </div>
-        <div class="col-sm-4">
-          <label for="state" class="form-label">State</label>
-          <input type="text" name="state" id="state" class="form-control" placeholder="State" required>
+        <div class="col-md-4">
+          <label for="state" class="form-label">🌐 State</label>
+          <input type="text" name="state" id="state" class="form-control form-control-lg border-primary" placeholder="Tamil Nadu" required>
         </div>
-        <div class="col-sm-2">
-          <label for="zip" class="form-label">Zip</label>
-          <input type="text" name="zip" id="zip" class="form-control" placeholder="Zip" required>
+        <div class="col-md-3">
+          <label for="zip" class="form-label">📮 Zip</label>
+          <input type="text" name="zip" id="zip" class="form-control form-control-lg border-primary" 
+                 placeholder="600001" required pattern="[0-9]{6}" maxlength="6"
+                 inputmode="numeric" title="Please enter a 6-digit PIN code">
         </div>
       </div>
+
       <div class="mb-3">
-        <label for="phone" class="form-label">Phone Number</label>
-        <input type="number" name="phone" id="phone" class="form-control" placeholder="Phone number" required>
+        <label for="phone" class="form-label">📞 Mobile Number</label>
+        <input type="tel" name="phone" id="phone" class="form-control form-control-lg border-primary" placeholder="9876543210" required pattern="[0-9]{10}">
       </div>
-      <div class="d-grid">
-        <button type="submit" class="btn btn-warning btn-lg">Submit</button>
+
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-lg btn-primary shadow-sm fw-semibold">
+           Place Order Now
+        </button>
       </div>
     </form>
-  </div> -->
+  </div>
 
+  <!-- Bunk Logos -->
   <div class="container">
     <div class="row g-4">
       <div class="col-md-6 text-center">
@@ -140,12 +124,27 @@
       </div>
     </div>
   </div>
+
+  <!-- Stylish Footer -->
+  <footer class="mt-5 bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="mb-1 fw-semibold"> Fuel Indicator &copy; 2025</p>
+      <p class="mb-2 small">Made in india</p>
+      <div>
+        <a href="#" class="text-light text-decoration-none me-3">Privacy Policy</a>
+        <a href="#" class="text-light text-decoration-none me-3">Terms</a>
+        <a href="#" class="text-light text-decoration-none">Support</a>
+      </div>
+    </div>
+  </footer>
+
   <script>
     function trackNow() {
       const id = document.getElementById('trackIdInput').value.trim();
       if (id) window.location.href = `/track.html?uid=${id}`;
     }
   </script>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
